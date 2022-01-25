@@ -454,6 +454,7 @@ int kolumna,wiersz;
     //przeprowadza gre
     auto gra() -> void
     {   
+        int bomby_es=0;
         bool game_over=false;
         int x,y;
         char action;
@@ -461,6 +462,7 @@ int kolumna,wiersz;
         while (!game_over)
         {  
             licznik_bomb=0;
+            bomby_es=0;
             wypisanie_mapy();
             std::cout << std::endl << "P - odsloniecie pola" << std::endl << "Z - oznaczenie miny" << std::endl << "F - zdjecie oznaczenia miny";
             std::cout << std::endl << "Wypisz nr wiersza, nr kolumny i akcje" << std::endl;
@@ -541,8 +543,18 @@ int kolumna,wiersz;
                         licznik_bomb+=1;
                     }
                 }
-            }  
-            if(licznik_bomb==15)
+            }
+            for(int x=0;x<30;x++)
+            {
+                for(int y=0;y<30;y++)
+                {
+                    if(mapa_widoczna[x][y]=='X'&&mapa[x][y]==9)
+                    {
+                        bomby_es+=1;
+                    }
+                }
+            }    
+            if(bomby_es==15)
             {   
                 wypisanie_mapy();
                 game_over=true;
